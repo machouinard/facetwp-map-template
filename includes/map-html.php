@@ -1,3 +1,4 @@
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
 <script>
 (function($) {
     var map;
@@ -10,10 +11,6 @@
             mapTypeId: google.maps.MapTypeId.TERRAIN,
             scrollwheel: false,
             zoom: 7
-        });
-
-        wp.hooks.addFilter('facetwp/template_html', function(bypass, response) {
-            return bypass;
         });
     });
 

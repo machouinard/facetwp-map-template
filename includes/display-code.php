@@ -15,6 +15,4 @@ while ( have_posts() ) : the_post();
 
 endwhile;
 
-?><script>
-window.map_data = <?php echo json_encode( $locations ); ?>;
-</script>
+?><script>window.map_data = <?php echo json_encode( $locations ); ?>;</script>

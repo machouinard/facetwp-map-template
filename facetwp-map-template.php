@@ -36,6 +36,7 @@ class FacetWP_Map_Template
     function init() {
         add_filter( 'facetwp_templates', array( $this, 'register_template' ) );
         add_filter( 'facetwp_template_html', array( $this, 'generate_map' ), 10, 2 );
+        add_filter( 'facetwp_shortcode_html', array( $this, 'render_map_html' ), 10, 2 );
     }
 
 
@@ -53,12 +54,26 @@ class FacetWP_Map_Template
 
     function generate_map( $override, $class ) {
         if ( 'map' == $class->template['name'] ) {
+            global $wp_query, $post;
+
             ob_start();
+            $wp_query = $class->query;
             include( dirname( __FILE__ ) . '/includes/display-code.php' );
             return ob_get_clean();
         }
 
         return $override;
+    }
+
+
+    function render_map_html( $output, $atts ) {
+        if ( isset( $atts['template'] ) && 'map' == $atts['template'] ) {
+            ob_start();
+            include( dirname( __FILE__ ) . '/includes/map-html.php' );
+            $output .= ob_get_clean();
+        }
+
+        return $output;
     }
 }
 
